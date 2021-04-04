@@ -92,6 +92,19 @@ func main() {
 				continue
 			}
 			log.Printf("Message published with ID: %q\n", msgID)
+		case "showsubs":
+			it := app.Client.Subscriptions(ctx)
+			for {
+				t, err := it.Next()
+				if err == iterator.Done {
+					break
+				}
+				if err != nil {
+					log.Println(err)
+					continue
+				}
+				fmt.Println(t)
+			}
 		case "exit":
 			os.Exit(0)
 		default:

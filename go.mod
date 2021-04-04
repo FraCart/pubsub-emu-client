@@ -1,4 +1,4 @@
-module github.com/FraCart/pubsub-emu-client
+module github.com/FraCart/pubsub-emulator-toolkit
 
 go 1.16
 
