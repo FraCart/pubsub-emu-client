@@ -46,6 +46,7 @@ func main() {
 	fmt.Println("[!] newtopic <topic-name>")
 	fmt.Println("[!] publish <topic> <data> <attributes> ('data' field can have only oneliners)")
 	fmt.Println("[!] showtopics")
+	fmt.Println("[!] showsubs")
 	fmt.Println("[!] exit")
 
 	for {
