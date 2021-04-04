@@ -4,7 +4,7 @@ Tool to better test Google Pub/Sub calls and messages while using the gcloud emu
 ## Usage
 * Start the emulator ([google's docs](https://cloud.google.com/pubsub/docs/emulator))
   ```bash
-  $ gcloud beta emulators pubsub start --project=YOUR_PUBSUB_PROJECTID
+  gcloud beta emulators pubsub start --project=YOUR_PUBSUB_PROJECTID
 * Set the environment variable with the Pub/Sub emulator address
   ```bash
   export PUBSUB_EMULATOR_HOST=localhost:8085
