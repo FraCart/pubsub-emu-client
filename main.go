@@ -14,7 +14,7 @@ import (
 
 type Config struct {
 	Client  *pubsub.Client
-	Topics  []*pubsub.Topic
+	Topics  map[string]*pubsub.Topic
 	Context context.Context
 }
 
@@ -52,7 +52,7 @@ func main() {
 				fmt.Println(err)
 			}
 
-			app.Topics = append(app.Topics, t)
+			app.Topics[topicID] = t
 		case "showtopics":
 			it := app.Client.Topics(app.Context)
 			for {
@@ -66,6 +66,21 @@ func main() {
 				}
 				fmt.Println(t)
 			}
+		case "publish":
+			topic := app.Topics[commands[1]]
+			res := topic.Publish(app.Context, &pubsub.Message{
+				Data: []byte(commands[2]),
+				Attributes: map[string]string{
+					"event": commands[3],
+				},
+			})
+
+			msgID, err := res.Get(ctx)
+			if err != nil {
+				log.Println(err)
+				continue
+			}
+			log.Printf("Message published with ID: %q", msgID)
 		default:
 			fmt.Printf("%q is not a valid input\n", input)
 		}
