@@ -18,4 +18,5 @@ Tool to better test Google Pub/Sub calls and messages while using the gcloud emu
 * `newtopic <topic-id>` creates a new topic with name 'topic-id'
 * `publish <topic-id> <data> <attributes>` publishes on `topic-id` the message `data` with attributes `attributes`. This is mostly hardcoded, but you can change the message easily in the code itself
 * `showtopics` lists all the topics in the active project
+* `showsubs` lists all the subscriptions in the active project
 * `exit` gracefully exits the program, even if CTRL + C has no side effects.
