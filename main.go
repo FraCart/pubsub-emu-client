@@ -19,6 +19,11 @@ type Config struct {
 }
 
 func main() {
+	if len(os.Args) < 1 {
+		log.Fatal("You must pass the emulator's projectID as argument")
+	} else if len(os.Args) > 2 {
+		log.Fatal("You can pass only the projectID as argument")
+	}
 	projectID := os.Args[1]
 
 	ctx := context.Background()
@@ -32,11 +37,16 @@ func main() {
 	app := Config{
 		Client:  c,
 		Context: ctx,
+		Topics:  map[string]*pubsub.Topic{},
 	}
 
 	reader := bufio.NewReader(os.Stdin)
 	fmt.Println("Pub/Sub emulator toolkit")
 	fmt.Println("------------------------")
+	fmt.Println("[!] newtopic <topic-name>")
+	fmt.Println("[!] publish <topic> <data> <attributes> ('data' field can have only oneliners)")
+	fmt.Println("[!] showtopics")
+	fmt.Println("[!] exit")
 
 	for {
 		fmt.Print("> ")
@@ -53,6 +63,7 @@ func main() {
 			}
 
 			app.Topics[topicID] = t
+			fmt.Println(t.String())
 		case "showtopics":
 			it := app.Client.Topics(app.Context)
 			for {
@@ -80,7 +91,9 @@ func main() {
 				log.Println(err)
 				continue
 			}
-			log.Printf("Message published with ID: %q", msgID)
+			log.Printf("Message published with ID: %q\n", msgID)
+		case "exit":
+			os.Exit(0)
 		default:
 			fmt.Printf("%q is not a valid input\n", input)
 		}
